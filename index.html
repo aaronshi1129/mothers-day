@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Mother's Day Card</title>
+    <link rel="icon" href="https://app.aaronshi.cc/aaronshi-favicon.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f1e5bc;
+            --rose: #e8b4b8;
+            --rose-dark: #c9777c;
+            --cream: #fff9f0;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .elegant-text {
+            font-family: 'Great Vibes', cursive;
+        }
+        
+        .serif-text {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        .card-container {
+            width: 100%;
+            max-width: 900px;
+            perspective: 2000px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            width: 100%;
+            height: 0;
+            padding-bottom: 60%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s ease;
+        }
+        
+        .card.open {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .card-front {
+            background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        
+        .card-back {
+            background: var(--cream);
+            transform: rotateY(180deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: auto;
+        }
+        
+        .card-title {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .gold-border {
+            border: 2px solid var(--gold);
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border-radius: 10px;
+            z-index: 1;
+        }
+        
+        .gold-accent {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--gold);
+            z-index: 2;
+        }
+        
+        .accent-top-left {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .accent-top-right {
+            top: 10px;
+            right: 10px;
+            border-left: none;
+            border-bottom: none;
+        }
+        
+        .accent-bottom-left {
+            bottom: 10px;
+            left: 10px;
+            border-right: none;
+            border-top: none;
+        }
+        
+        .accent-bottom-right {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--rose);
+            border-radius: 50% 0 50% 0;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(45deg);
+            }
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            letter-spacing: 1px;
+        }
+        
+        .btn-gold {
+            color: #333;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6);
+        }
+        
+        .btn-rose {
+            color: white;
+            background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+            box-shadow: 0 5px 15px rgba(201, 119, 124, 0.4);
+        }
+        
+        .btn-rose:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(201, 119, 124, 0.6);
+        }
+        
+        .photo-frame {
+            width: 100%;
+            padding-bottom: 100%;
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .photo-frame:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Changed from cover to contain */
+            transition: transform 0.5s ease;
+        }
+        
+        .photo-frame:hover .photo {
+            transform: scale(1.1);
+        }
+        
+        .message-container {
+            position: relative;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .message {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .message.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            transform: translateY(0);
+            animation: confetti-fall 5s ease-out forwards;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d4af37'%3E%3Cpath d='M12 0L14.5 9.5H24L16.5 15.5L19 24L12 18L5 24L7.5 15.5L0 9.5H9.5L12 0Z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0;
+            animation: sparkle 2s ease-out forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes sparkle {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+        
+        .gold-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 20px 0;
+        }
+        
+        .share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 24px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            transform: translateY(0);
+            gap: 8px;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .share-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px 0;
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .footer a {
+            color: var(--rose-dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer a:hover {
+            color: var(--gold);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .card {
+                padding-bottom: 140%;
+            }
+            
+            #close-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card" id="card">
+            <div class="card-front">
+                <!-- Gold accents -->
+                <div class="gold-border"></div>
+                <div class="gold-accent accent-top-left"></div>
+                <div class="gold-accent accent-top-right"></div>
+                <div class="gold-accent accent-bottom-left"></div>
+                <div class="gold-accent accent-bottom-right"></div>
+                
+                <!-- Floating petals -->
+                <div class="petals-container" id="petals-container"></div>
+                
+                <div class="card-title text-center p-8 z-10">
+                    <h1 class="elegant-text text-6xl md:text-7xl text-white mb-4">Happy Mother's Day</h1>
+                    <p class="serif-text text-xl text-white opacity-90 mb-8">With love and appreciation</p>
+                    <button id="open-btn" class="btn btn-gold">Open Card</button>
+                </div>
+            </div>
+            
+            <div class="card-back">
+                <div class="p-8 md:p-12">
+                    <div class="flex justify-between items-center mb-8">
+                        <h2 class="elegant-text text-4xl md:text-5xl text-rose-dark">For Mom</h2>
+                        <button id="close-btn" class="btn btn-rose text-sm">Close Card</button>
+                    </div>
+                    
+                    <div class="gold-divider"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+                        <div class="photo-frame">
+                            <img src="https://app.aaronshi.cc/mother-day-1.png" alt="Mother's Day Image 1" class="photo">
+                        </div>
+                        <div class="photo-frame">
+                            <img src="https://app.aaronshi.cc/mother-day-2.png" alt="Mother's Day Image 2" class="photo">
+                        </div>
+                        <div class="photo-frame">
+                            <img src="https://app.aaronshi.cc/mother-day-3.png" alt="Mother's Day Image 3" class="photo">
+                        </div>
+                    </div>
+                    
+                    <div class="message-container serif-text" id="message-container">
+                        <div id="message" class="message">
+                            <p class="text-xl mb-4">Dearest Mother,</p>
+                            <p class="mb-4">On this special day, I want to express my deepest gratitude for your unwavering love and support throughout my life. Your strength, wisdom, and compassion have shaped me into the person I am today.</p>
+                            <p class="mb-4">You've been my first teacher, my strongest advocate, and my most loyal friend. Your selfless love has been the foundation upon which I've built my life, and for that, I am eternally grateful.</p>
+                            <p class="mb-4">Thank you for your patience during difficult times, your guidance when I was lost, and your celebration of my achievements, no matter how small.</p>
+                            <p class="mb-4">Today and always, I celebrate you and the incredible impact you've had on my life.</p>
+                            <p class="text-xl elegant-text mt-6">With all my love and appreciation,</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gold-divider"></div>
+                    
+                    <div class="share-container">
+                        <p class="text-gray-600">Share this card:</p>
+                        <button onclick="copyLink()" class="share-btn bg-gradient-to-r from-purple-600 to-indigo-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                            Copy Link / 複製連結
+                        </button>
+                    </div>
+                    <div id="copy-notification" class="hidden mt-4 text-center text-green-600 font-semibold">
+                        Link copied to clipboard! / 連結已複製！
+                    </div>
+                    
+                    <div class="footer">
+                        <p>Created by <a href="https://www.aaronshi.cc/" target="_blank" rel="noopener noreferrer">AaronShi.cc</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Card open/close functionality
+        const card = document.getElementById('card');
+        const openBtn = document.getElementById('open-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const message = document.getElementById('message');
+        
+        openBtn.addEventListener('click', function() {
+            card.classList.add('open');
+            setTimeout(() => {
+                message.classList.add('visible');
+                createConfetti(); // Create confetti when card is opened
+            }, 1000);
+        });
+        
+        closeBtn.addEventListener('click', function() {
+            card.classList.remove('open');
+            message.classList.remove('visible');
+        });
+        
+        // Create floating petals
+        const petalsContainer = document.getElementById('petals-container');
+        const petalCount = 20;
+        
+        for (let i = 0; i < petalCount; i++) {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            
+            // Random position
+            const left = Math.random() * 100 + '%';
+            const top = Math.random() * 100 + '%';
+            
+            // Random size
+            const size = Math.random() * 15 + 10;
+            
+            // Random rotation
+            const rotation = Math.random() * 360;
+            
+            // Random animation delay
+            const delay = Math.random() * 5;
+            
+            // Random opacity
+            const opacity = Math.random() * 0.5 + 0.3;
+            
+            // Apply styles
+            petal.style.left = left;
+            petal.style.top = top;
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size}px`;
+            petal.style.transform = `rotate(${rotation}deg)`;
+            petal.style.animationDelay = `${delay}s`;
+            petal.style.opacity = opacity;
+            
+            petalsContainer.appendChild(petal);
+        }
+        
+        // Make petals follow mouse movement slightly
+        document.addEventListener('mousemove', function(e) {
+            const petals = document.querySelectorAll('.petal');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            petals.forEach(petal => {
+                const moveX = (mouseX - 0.5) * 20;
+                const moveY = (mouseY - 0.5) * 20;
+                petal.style.marginLeft = `${moveX}px`;
+                petal.style.marginTop = `${moveY}px`;
+            });
+        });
+        
+        // Confetti animation
+        const confettiColors = [
+            '#d4af37', '#e8b4b8', '#c9777c', '#fff9f0', '#f1e5bc'
+        ];
+        
+        function createConfetti() {
+            const confettiCount = 150;
+            const container = document.body;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Random confetti properties
+                const color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                const shape = Math.random() > 0.3 ? 'circle' : Math.random() > 0.5 ? 'rect' : 'heart';
+                const size = Math.random() * 12 + 5;
+                const left = Math.random() * 100 + 'vw';
+                const animationDuration = Math.random() * 3 + 2 + 's';
+                const animationDelay = Math.random() * 0.5 + 's';
+                
+                // Apply styles
+                confetti.style.backgroundColor = color;
+                confetti.style.left = left;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = shape === 'circle' ? `${size}px` : shape === 'rect' ? `${size * 0.6}px` : `${size}px`;
+                
+                if (shape === 'heart') {
+                    confetti.style.backgroundColor = 'transparent';
+                    confetti.style.backgroundImage = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='${encodeURIComponent(color)}'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E")`;
+                    confetti.style.backgroundSize = 'contain';
+                    confetti.style.backgroundRepeat = 'no-repeat';
+                }
+                
+                confetti.style.borderRadius = shape === 'circle' ? '50%' : '0';
+                confetti.style.animationDuration = animationDuration;
+                confetti.style.animationDelay = animationDelay;
+                
+                // Add some 3D rotation
+                confetti.style.transform = `rotate3d(${Math.random()}, ${Math.random()}, ${Math.random()}, ${Math.random() * 360}deg)`;
+                
+                container.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, (parseFloat(animationDuration) + parseFloat(animationDelay)) * 1000);
+            }
+        }
+        
+        // Copy link function with message
+        function copyLink() {
+            const shareUrl = 'https://abc.aaronshi.cc/mothers-day/';
+            const shareMessage = 'Happy Mother\'s Day! This is my card for you! 母親節快樂！這是我要送給您的母親節卡片！\n\n';
+            const fullText = shareMessage + shareUrl;
+            
+            // Create a temporary input element
+            const dummy = document.createElement('textarea');
+            document.body.appendChild(dummy);
+            dummy.value = fullText;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            
+            // Show notification
+            const notification = document.getElementById('copy-notification');
+            notification.classList.remove('hidden');
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 3000);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93df689616604a46',t:'MTc0Njk0MjcyOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
